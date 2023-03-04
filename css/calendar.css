@@ -1,0 +1,98 @@
+.calendar {
+    --calendar-size: 18rem;
+    --font-sm: calc(var(--calendar-size) * 0.04);
+    --font-lg: calc(var(--calendar-size) * 0.05);
+    --nav-padding-ver: calc(var(--calendar-size) * 0.06);
+    --nav-padding-hor: calc(var(--calendar-size) * 0.08);
+    --nav-month-mb: calc(var(--calendar-size) * 0.02);
+    --grid-row-height: calc(var(--calendar-size) * 0.13);
+    --grid-padding-ver: calc(var(--calendar-size) * 0.01);
+    --grid-padding-hor: calc(var(--calendar-size) * 0.03);
+    --grid-margin: calc(var(--calendar-size) * 0.01);
+
+    width: var(--calendar-size);
+    border-radius: 10px;
+    overflow: hidden;
+
+    margin: 0.5rem 0;
+
+    box-shadow: 0 0 1rem 0.1rem var(--color-gray-04);
+}
+
+.calendar-nav {
+    width: 100%;
+    background-color: var(--color-green);
+    padding: var(--nav-padding-ver) var(--nav-padding-hor);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: var(--font-sm);
+    font-weight: 300;
+    color: var(--color-white);
+}
+
+.calendar-prev-btn,
+.calendar-next-btn {
+    color: var(--color-white);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+
+    cursor: pointer;
+}
+
+.calendar-current {
+    text-align: center;
+}
+
+.calendar-month {    
+    font-size: var(--font-lg);
+    margin-bottom: var(--nav-month-mb);
+}
+
+.calendar-grid {
+    width: 100%;
+    background-color: var(--color-gray-01);
+    padding: var(--grid-padding-ver) var(--grid-padding-hor);
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: var(--grid-row-height);
+
+    font-size: var(--font-sm);
+    color: var(--color-gray-04);
+}
+
+.calendar-grid > p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    margin: var(--grid-margin);    
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.calendar-grid > p:hover {
+    background-color: var(--color-green);
+    color: var(--color-white);
+}
+
+.calendar-grid .day-of-week {
+    cursor: default;
+}
+
+.calendar-grid .date-of-current-month {
+    color: black;
+}
+
+.calendar-grid .holiday {
+    color: var(--color-red);
+}
+
+.calendar-grid .today {
+    border: 2px solid var(--color-green);
+}
