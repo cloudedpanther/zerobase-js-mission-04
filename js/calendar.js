@@ -1,6 +1,6 @@
 import { makeDOMWithProperties } from "./utils.js";
 
-const Calendar = ($datePicker) => {
+const Calendar = ($datePicker, calendarSize) => {
   let currentDate = new Date();
   const originalMonth = currentDate.getMonth();
   const today = currentDate.getDate();
@@ -145,6 +145,10 @@ const Calendar = ($datePicker) => {
     const calendarDOM = makeDOMWithProperties("div", {
       className: "calendar",
     });
+    calendarDOM.style.setProperty(
+      "--calendar-size",
+      calendarSize
+    );
 
     return calendarDOM;
   };

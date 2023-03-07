@@ -1,5 +1,5 @@
 .calendar {
-    --calendar-size: 18rem;
+    --calendar-size: 0;
     --font-sm: calc(var(--calendar-size) * 0.04);
     --font-lg: calc(var(--calendar-size) * 0.05);
     --nav-padding-ver: calc(var(--calendar-size) * 0.06);

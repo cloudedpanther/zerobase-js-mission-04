@@ -5,7 +5,7 @@ const $datePickers = [
 ];
 
 $datePickers.forEach(($datePicker) => {
-  Calendar($datePicker);
+  Calendar($datePicker, "18rem");
 
   const formatYear = (year) => {
     const yearString = String(year);
