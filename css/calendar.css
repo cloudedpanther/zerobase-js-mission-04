@@ -17,6 +17,12 @@
     margin: 0.5rem 0;
 
     box-shadow: 0 0 1rem 0.1rem var(--color-gray-04);
+
+    display: none;
+}
+
+.showing {
+    display: block;
 }
 
 .calendar-nav {
@@ -41,6 +47,11 @@
     padding: 0;
 
     cursor: pointer;
+}
+
+.bxs-left-arrow,
+.bxs-right-arrow {
+    pointer-events: none;
 }
 
 .calendar-current {
@@ -76,23 +87,24 @@
     transition: background-color 0.3s;
 }
 
-.calendar-grid > p:hover {
-    background-color: var(--color-green);
-    color: var(--color-white);
-}
-
 .calendar-grid .day-of-week {
     cursor: default;
 }
 
-.calendar-grid .date-of-current-month {
+.calendar-grid .calendar-date:hover,
+.calendar-grid .calendar-date.selected-date {
+    background-color: var(--color-green);
+    color: var(--color-white);
+}
+
+.calendar-grid .calendar-date.current-month {
     color: black;
 }
 
-.calendar-grid .holiday {
+.calendar-grid .calendar-date.holiday {
     color: var(--color-red);
 }
 
-.calendar-grid .today {
+.calendar-grid .calendar-date.today {
     border: 2px solid var(--color-green);
 }
