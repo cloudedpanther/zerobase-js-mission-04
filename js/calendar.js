@@ -272,6 +272,16 @@ const Calendar = ($datePicker, calendarSize) => {
     $datePicker.dispatchEvent(datePickEvent);
   };
 
+  const formatYear = (year) => {
+    const yearString = String(year);
+    return "0".repeat(4 - yearString.length) + yearString;
+  };
+
+  const formatMonthDate = (date) => {
+    const dateString = String(date);
+    return "0".repeat(2 - dateString.length) + dateString;
+  };
+
   const selectDate = (e) => {
     if (!e.target.className.includes("calendar-date"))
       return;
@@ -283,7 +293,13 @@ const Calendar = ($datePicker, calendarSize) => {
       dateDOM.classList.remove("selected-date");
     });
 
-    selectedDate = e.target.dataSet;
+    const { year, month, date } = e.target.dataSet;
+
+    selectedDate = `${formatYear(year)}-${formatMonthDate(
+      month + 1
+    )}-${formatMonthDate(date)}`;
+
+    console.log(selectedDate);
 
     e.target.classList.add("selected-date");
 
