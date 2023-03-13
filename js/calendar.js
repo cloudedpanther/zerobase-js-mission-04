@@ -1,34 +1,26 @@
-import { makeDOMWithProperties } from "./utils.js";
+import makeDOMWithProperties from './utils.js';
 
 const Calendar = ($datePicker, calendarSize) => {
-  let currentDate = new Date();
+  const currentDate = new Date();
   const originalMonth = currentDate.getMonth();
   const today = currentDate.getDate();
 
   let selectedDate = null;
 
-  const dayMap = [
-    "SUN",
-    "MON",
-    "TUE",
-    "WED",
-    "THU",
-    "FRI",
-    "SAT",
-  ];
+  const dayMap = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const monthMap = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   const isCurrentMonthPage = (month, currentMonth, day) => {
@@ -36,32 +28,24 @@ const Calendar = ($datePicker, calendarSize) => {
     if (currentMonth === 0) {
       monthFlag = month === 11 || month === 0;
     } else {
-      monthFlag =
-        month === currentMonth - 1 ||
-        month === currentMonth;
+      monthFlag = month === currentMonth - 1 || month === currentMonth;
     }
 
     return monthFlag || day > 0;
   };
 
-  const getDateClassName = (
-    date,
-    month,
-    currentMonth,
-    day
-  ) => {
-    let className = "calendar-date";
+  const getDateClassName = (date, month, currentMonth, day) => {
+    let className = 'calendar-date';
 
     if (month < currentMonth) {
-      className += " previous-month";
+      className += ' previous-month';
     } else if (month > currentMonth) {
-      className += " next-month";
+      className += ' next-month';
     } else {
-      className += " current-month";
+      className += ' current-month';
 
-      if (month === originalMonth && date === today)
-        className += " today";
-      if (day === 0) className += " holiday";
+      if (month === originalMonth && date === today) className += ' today';
+      if (day === 0) className += ' holiday';
     }
 
     return className;
@@ -84,13 +68,8 @@ const Calendar = ($datePicker, calendarSize) => {
     let day = dateMap.getDay();
 
     while (isCurrentMonthPage(month, currentMonth, day)) {
-      const dateDOM = makeDOMWithProperties("p", {
-        className: getDateClassName(
-          date,
-          month,
-          currentMonth,
-          day
-        ),
+      const dateDOM = makeDOMWithProperties('p', {
+        className: getDateClassName(date, month, currentMonth, day),
         dataSet: {
           year,
           month,
@@ -110,98 +89,85 @@ const Calendar = ($datePicker, calendarSize) => {
     return dateDOMList;
   };
 
+  const getDayDOMList = () =>
+    dayMap.map((day) =>
+      makeDOMWithProperties('p', {
+        className: 'day-of-week',
+        innerHTML: day,
+      }),
+    );
+
   const setCalendarGrid = (calendarGridDOM) => {
     const dayDOMList = getDayDOMList();
     const dateDOMList = getDateDOMList();
 
-    dayDOMList.forEach((dayDOM) =>
-      calendarGridDOM.appendChild(dayDOM)
-    );
-    dateDOMList.forEach((dateDOM) =>
-      calendarGridDOM.appendChild(dateDOM)
-    );
+    dayDOMList.forEach((dayDOM) => calendarGridDOM.appendChild(dayDOM));
+    dateDOMList.forEach((dateDOM) => calendarGridDOM.appendChild(dateDOM));
   };
+
+  const getCurrentMonth = () => monthMap[currentDate.getMonth()];
+
+  const getCurrentYear = () => currentDate.getFullYear();
 
   const setCalendarView = () => {
     const $calendar = $datePicker.nextElementSibling;
-    const $calendarNav =
-      $calendar.querySelector(".calendar-nav");
-    const $calendarGrid = $calendar.querySelector(
-      ".calendar-grid"
-    );
-    const currentMonthDOM = $calendarNav.querySelector(
-      ".calendar-month"
-    );
-    const currentYearDOM = $calendarNav.querySelector(
-      ".calendar-year"
-    );
+    const $calendarNav = $calendar.querySelector('.calendar-nav');
+    const $calendarGrid = $calendar.querySelector('.calendar-grid');
+    const currentMonthDOM = $calendarNav.querySelector('.calendar-month');
+    const currentYearDOM = $calendarNav.querySelector('.calendar-year');
     currentMonthDOM.innerHTML = `${getCurrentMonth()}`;
     currentYearDOM.innerHTML = `${getCurrentYear()}`;
-    $calendarGrid.innerHTML = "";
+    $calendarGrid.innerHTML = '';
     setCalendarGrid($calendarGrid);
   };
 
   const createCalendar = () => {
-    const calendarDOM = makeDOMWithProperties("div", {
-      className: "calendar",
+    const calendarDOM = makeDOMWithProperties('div', {
+      className: 'calendar',
     });
-    calendarDOM.style.setProperty(
-      "--calendar-size",
-      calendarSize
-    );
+    calendarDOM.style.setProperty('--calendar-size', calendarSize);
 
     return calendarDOM;
   };
 
-  const getCurrentMonth = () => {
-    return monthMap[currentDate.getMonth()];
-  };
-
-  const getCurrentYear = () => {
-    return currentDate.getFullYear();
-  };
-
   const createCalendarNav = () => {
-    const calendarNavDOM = makeDOMWithProperties("div", {
-      className: "calendar-nav",
+    const calendarNavDOM = makeDOMWithProperties('div', {
+      className: 'calendar-nav',
     });
 
-    const prevButtonDOM = makeDOMWithProperties("button", {
-      className: "calendar-prev-btn",
+    const prevButtonDOM = makeDOMWithProperties('button', {
+      className: 'calendar-prev-btn',
     });
 
-    const prevArrowDOM = makeDOMWithProperties("i", {
-      className: "bx bxs-left-arrow",
+    const prevArrowDOM = makeDOMWithProperties('i', {
+      className: 'bx bxs-left-arrow',
     });
 
     prevButtonDOM.appendChild(prevArrowDOM);
 
-    const currentPageInfoDOM = makeDOMWithProperties(
-      "div",
-      {
-        className: "calendar-current",
-      }
-    );
+    const currentPageInfoDOM = makeDOMWithProperties('div', {
+      className: 'calendar-current',
+    });
 
-    const currentMonthDOM = makeDOMWithProperties("p", {
-      className: "calendar-month",
+    const currentMonthDOM = makeDOMWithProperties('p', {
+      className: 'calendar-month',
       innerHTML: `${getCurrentMonth()}`,
     });
 
-    const currentYearDOM = makeDOMWithProperties("p", {
-      className: "calendar-year",
+    const currentYearDOM = makeDOMWithProperties('p', {
+      className: 'calendar-year',
       innerHTML: `${getCurrentYear()}`,
     });
 
     currentPageInfoDOM.appendChild(currentMonthDOM);
     currentPageInfoDOM.appendChild(currentYearDOM);
 
-    const nextButtonDOM = makeDOMWithProperties("button", {
-      className: "calendar-next-btn",
+    const nextButtonDOM = makeDOMWithProperties('button', {
+      className: 'calendar-next-btn',
     });
 
-    const nextArrowDOM = makeDOMWithProperties("i", {
-      className: "bx bxs-right-arrow",
+    const nextArrowDOM = makeDOMWithProperties('i', {
+      className: 'bx bxs-right-arrow',
     });
 
     nextButtonDOM.appendChild(nextArrowDOM);
@@ -213,18 +179,9 @@ const Calendar = ($datePicker, calendarSize) => {
     return calendarNavDOM;
   };
 
-  const getDayDOMList = () => {
-    return dayMap.map((day) =>
-      makeDOMWithProperties("p", {
-        className: "day-of-week",
-        innerHTML: day,
-      })
-    );
-  };
-
   const createCaledarGrid = () => {
-    const calendarGridDOM = makeDOMWithProperties("div", {
-      className: "calendar-grid",
+    const calendarGridDOM = makeDOMWithProperties('div', {
+      className: 'calendar-grid',
     });
 
     setCalendarGrid(calendarGridDOM);
@@ -233,38 +190,38 @@ const Calendar = ($datePicker, calendarSize) => {
   };
 
   const moveToPrevMonth = (e) => {
-    if (e.target.className !== "calendar-prev-btn") return;
+    if (e.target.className !== 'calendar-prev-btn') return;
 
     currentDate.setMonth(currentDate.getMonth() - 1);
     setCalendarView();
   };
 
   const moveToNextMonth = (e) => {
-    if (e.target.className !== "calendar-next-btn") return;
+    if (e.target.className !== 'calendar-next-btn') return;
 
     currentDate.setMonth(currentDate.getMonth() + 1);
     setCalendarView();
   };
 
   const showCalendar = (e) => {
-    e.target.nextElementSibling.classList.add("showing");
+    e.target.nextElementSibling.classList.add('showing');
   };
 
   const hideCalendar = (e) => {
     const calendarDOM = $datePicker.nextElementSibling;
 
-    if (!calendarDOM.className.includes("showing")) return;
+    if (!calendarDOM.className.includes('showing')) return;
 
     if (e) {
       if (e.target === $datePicker) return;
       if (calendarDOM.contains(e.target)) return;
     }
 
-    calendarDOM.classList.remove("showing");
+    calendarDOM.classList.remove('showing');
   };
 
   const dispatchDatePickEvent = () => {
-    const datePickEvent = new CustomEvent("ondatepick", {
+    const datePickEvent = new CustomEvent('ondatepick', {
       bubbles: true,
       cancelable: true,
       detail: selectedDate,
@@ -274,34 +231,31 @@ const Calendar = ($datePicker, calendarSize) => {
 
   const formatYear = (year) => {
     const yearString = String(year);
-    return "0".repeat(4 - yearString.length) + yearString;
+    return '0'.repeat(4 - yearString.length) + yearString;
   };
 
   const formatMonthDate = (date) => {
     const dateString = String(date);
-    return "0".repeat(2 - dateString.length) + dateString;
+    return '0'.repeat(2 - dateString.length) + dateString;
   };
 
   const selectDate = (e) => {
-    if (!e.target.className.includes("calendar-date"))
-      return;
+    if (!e.target.className.includes('calendar-date')) return;
 
-    const dateDOMList = document.querySelectorAll(
-      ".calendar-date"
-    );
+    const dateDOMList = document.querySelectorAll('.calendar-date');
     dateDOMList.forEach((dateDOM) => {
-      dateDOM.classList.remove("selected-date");
+      dateDOM.classList.remove('selected-date');
     });
 
     const { year, month, date } = e.target.dataSet;
 
     selectedDate = `${formatYear(year)}-${formatMonthDate(
-      month + 1
+      month + 1,
     )}-${formatMonthDate(date)}`;
 
     console.log(selectedDate);
 
-    e.target.classList.add("selected-date");
+    e.target.classList.add('selected-date');
 
     dispatchDatePickEvent();
     hideCalendar();
@@ -316,12 +270,12 @@ const Calendar = ($datePicker, calendarSize) => {
     calendarDOM.appendChild(calendarGridDOM);
     $datePicker.after(calendarDOM);
 
-    calendarDOM.addEventListener("click", moveToPrevMonth);
-    calendarDOM.addEventListener("click", moveToNextMonth);
-    calendarDOM.addEventListener("click", selectDate);
+    calendarDOM.addEventListener('click', moveToPrevMonth);
+    calendarDOM.addEventListener('click', moveToNextMonth);
+    calendarDOM.addEventListener('click', selectDate);
 
-    $datePicker.addEventListener("click", showCalendar);
-    document.addEventListener("click", hideCalendar);
+    $datePicker.addEventListener('click', showCalendar);
+    document.addEventListener('click', hideCalendar);
   };
 
   init();
